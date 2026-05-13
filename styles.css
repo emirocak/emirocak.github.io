@@ -342,6 +342,7 @@ h3 {
 .app-icon.kitchen { background: linear-gradient(145deg, #d65f45, #9b4935); }
 .app-icon.card { background: linear-gradient(145deg, #6651b8, #2d2e72); }
 .app-icon.prayer { background: linear-gradient(145deg, #bb7a10, #75561c); }
+.app-icon.medicine { background: linear-gradient(145deg, #0f9f9a, #17526f); }
 .app-icon.game { background: linear-gradient(145deg, #141821, #5c6678); }
 
 .product-body {
