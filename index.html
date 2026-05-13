@@ -3,11 +3,11 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Emir Ocak - iOS Uygulamaları ve Oyunları</title>
-  <meta name="description" content="Emir Ocak tarafından geliştirilen iOS uygulamaları ve oyunları. App Store bağlantıları, kısa açıklamalar, gizlilik politikası ve iletişim bilgileri.">
+  <title>Emir Ocak - iOS Uygulamaları</title>
+  <meta name="description" content="Emir Ocak tarafından geliştirilen iOS uygulamaları ve oyunları. App Store bağlantıları, ürün detayları, gizlilik politikası ve iletişim bilgileri.">
   <meta name="author" content="Emir Ocak">
   <meta property="og:title" content="Emir Ocak - iOS Uygulamaları">
-  <meta property="og:description" content="Finans, üretkenlik, yemek, yaşam tarzı ve oyun kategorilerinde iOS uygulamaları.">
+  <meta property="og:description" content="Finans, sağlık, üretkenlik, yaşam tarzı ve oyun kategorilerinde iOS uygulamaları.">
   <meta property="og:type" content="website">
   <meta property="og:url" content="https://emirocak.github.io">
   <link rel="canonical" href="https://emirocak.github.io">
@@ -15,15 +15,18 @@
   <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-  <header class="site-header">
+  <header class="site-shell hero-shell">
     <nav class="nav" aria-label="Ana menü">
       <a class="brand" href="index.html" aria-label="Emir Ocak ana sayfa">
         <span class="brand-mark">EO</span>
-        <span>Emir Ocak</span>
+        <span class="brand-copy">
+          <strong>Emir Ocak</strong>
+          <small>iOS Developer</small>
+        </span>
       </a>
       <div class="nav-links">
         <a href="#apps">Uygulamalar</a>
-        <a href="#games">Oyun</a>
+        <a href="#game">Oyun</a>
         <a href="#about">Hakkımda</a>
         <a href="privacy.html">Gizlilik</a>
       </div>
@@ -31,66 +34,90 @@
 
     <section class="hero">
       <div class="hero-copy">
-        <p class="eyebrow">iOS geliştiricisi</p>
-        <h1>Günlük hayatı kolaylaştıran sade ve kullanışlı uygulamalar.</h1>
-        <p class="hero-text">Finans takibi, araç masrafları, mutfak planı, alışkanlık takibi ve oyun projeleri. Tüm uygulamalarımı bu sayfadan inceleyebilir, App Store bağlantılarına ulaşabilirsiniz.</p>
+        <p class="eyebrow">App Store portföyü</p>
+        <h1>Günlük işleri sadeleştiren iPhone uygulamaları.</h1>
+        <p class="hero-text">Finans, sağlık, mutfak, araç masrafı ve alışkanlık takibi için hızlı, anlaşılır ve güven odaklı mobil ürünler geliştiriyorum.</p>
         <div class="hero-actions">
-          <a class="button primary" href="#apps">Uygulamaları Gör</a>
-          <a class="button secondary" href="mailto:emirrocak@gmail.com">İletişim</a>
+          <a class="button primary" href="#apps">Uygulamaları İncele</a>
+          <a class="button secondary" href="mailto:emirrocak@gmail.com">İletişime Geç</a>
         </div>
+        <dl class="hero-metrics" aria-label="Portföy özeti">
+          <div>
+            <dt>7</dt>
+            <dd>iOS uygulaması</dd>
+          </div>
+          <div>
+            <dt>1</dt>
+            <dd>mobil oyun</dd>
+          </div>
+          <div>
+            <dt>App Store</dt>
+            <dd>yayına hazır marketing URL</dd>
+          </div>
+        </dl>
       </div>
-      <div class="device-wall" aria-label="Uygulama koleksiyonu">
-        <div class="device-card blue">
-          <span>₺</span>
-          <strong>IBAN</strong>
-          <small>Güvenli saklama</small>
+
+      <aside class="portfolio-panel" aria-label="Öne çıkan uygulamalar">
+        <div class="panel-header">
+          <span>Product Suite</span>
+          <strong>2026</strong>
         </div>
-        <div class="device-card green">
-          <span>↗</span>
-          <strong>Drivetsy</strong>
-          <small>Araç masrafı</small>
+        <div class="phone-frame">
+          <div class="phone-status">
+            <span></span>
+            <span></span>
+          </div>
+          <div class="mini-app-grid">
+            <a class="mini-app blue" href="apps/iban-cuzdani.html"><span>₺</span><strong>IBAN</strong></a>
+            <a class="mini-app teal" href="apps/ilac-rehberim.html"><span>✚</span><strong>İlaç</strong></a>
+            <a class="mini-app coral" href="apps/kitchenmate.html"><span>◐</span><strong>Kitchen</strong></a>
+            <a class="mini-app green" href="apps/drivetsy.html"><span>↗</span><strong>Drive</strong></a>
+            <a class="mini-app violet" href="apps/kredi-karti-yonetimi.html"><span>▤</span><strong>Kart</strong></a>
+            <a class="mini-app dark" href="apps/sonsuz-merdiven.html"><span>▣</span><strong>StepRush</strong></a>
+          </div>
         </div>
-        <div class="device-card coral">
-          <span>◐</span>
-          <strong>Kitchenmate</strong>
-          <small>Kiler ve tarif</small>
+        <div class="panel-footer">
+          <span>Privacy minded</span>
+          <span>Fast support</span>
         </div>
-        <div class="device-card dark">
-          <span>▣</span>
-          <strong>StepRush</strong>
-          <small>Mobil oyun</small>
-        </div>
-      </div>
+      </aside>
     </section>
   </header>
 
   <main>
-    <section class="section intro-strip" aria-label="Kısa bilgiler">
-      <div>
-        <strong>7</strong>
-        <span>iOS uygulaması</span>
-      </div>
-      <div>
-        <strong>1</strong>
-        <span>oyun projesi</span>
-      </div>
-      <div>
-        <strong>App Store</strong>
-        <span>Marketing URL hazır</span>
+    <section class="trust-band">
+      <div class="site-shell trust-grid">
+        <div>
+          <strong>App Store bağlantıları</strong>
+          <span>Tüm ürünler doğrudan resmi App Store sayfalarına yönlenir.</span>
+        </div>
+        <div>
+          <strong>Gizlilik politikası</strong>
+          <span>App Store marketing URL ve gizlilik sayfası tek yerde.</span>
+        </div>
+        <div>
+          <strong>Bağımsız geliştirme</strong>
+          <span>Hatay merkezli, hızlı iterasyonla büyüyen ürün portföyü.</span>
+        </div>
       </div>
     </section>
 
-    <section class="section" id="apps">
-      <div class="section-heading">
-        <p class="eyebrow">App Store</p>
-        <h2>Uygulamalar</h2>
+    <section class="site-shell section" id="apps">
+      <div class="section-heading split-heading">
+        <div>
+          <p class="eyebrow">Uygulamalar</p>
+          <h2>iPhone için pratik araçlar.</h2>
+        </div>
+        <p>Her uygulama belirli bir günlük işi daha kısa, daha düzenli ve daha anlaşılır hale getirmek için tasarlandı.</p>
       </div>
 
       <div class="product-grid">
-        <article class="product-card">
-          <div class="app-icon iban">₺</div>
+        <article class="product-card featured">
+          <div class="card-top">
+            <div class="app-icon iban">₺</div>
+            <span class="pill">Finans</span>
+          </div>
           <div class="product-body">
-            <p class="category">Finans</p>
             <h3>IBAN Cüzdanı</h3>
             <p>IBAN doğrulama, otomatik banka algılama, QR paylaşımı ve yerel saklama.</p>
           </div>
@@ -101,9 +128,11 @@
         </article>
 
         <article class="product-card">
-          <div class="app-icon debt">₺</div>
+          <div class="card-top">
+            <div class="app-icon debt">₺</div>
+            <span class="pill">Finans</span>
+          </div>
           <div class="product-body">
-            <p class="category">Finans</p>
             <h3>Borc Takip</h3>
             <p>Müşteri borçları, ödeme geçmişi, kalan tutar ve raporları tek ekranda takip edin.</p>
           </div>
@@ -114,9 +143,11 @@
         </article>
 
         <article class="product-card">
-          <div class="app-icon drive">↗</div>
+          <div class="card-top">
+            <div class="app-icon drive">↗</div>
+            <span class="pill">Üretkenlik</span>
+          </div>
           <div class="product-body">
-            <p class="category">Üretkenlik</p>
             <h3>Drivetsy</h3>
             <p>Yakıt, bakım, vergi, sigorta ve araç masraflarınızı düzenli şekilde yönetin.</p>
           </div>
@@ -127,9 +158,11 @@
         </article>
 
         <article class="product-card">
-          <div class="app-icon kitchen">◐</div>
+          <div class="card-top">
+            <div class="app-icon kitchen">◐</div>
+            <span class="pill">Yiyecek</span>
+          </div>
           <div class="product-body">
-            <p class="category">Yiyecek ve İçecek</p>
             <h3>Kitchenmate</h3>
             <p>Kilerinizi takip edin, eksikleri alışveriş listesine ekleyin, tarif önerileri alın.</p>
           </div>
@@ -140,9 +173,11 @@
         </article>
 
         <article class="product-card">
-          <div class="app-icon card">▤</div>
+          <div class="card-top">
+            <div class="app-icon card">▤</div>
+            <span class="pill">Finans</span>
+          </div>
           <div class="product-body">
-            <p class="category">Finans</p>
             <h3>Kredi Kartı Yönetimi</h3>
             <p>Kart limitleri, borçlar, hesap kesim tarihleri, faiz hesaplama ve risk analizi.</p>
           </div>
@@ -153,9 +188,11 @@
         </article>
 
         <article class="product-card">
-          <div class="app-icon prayer">☼</div>
+          <div class="card-top">
+            <div class="app-icon prayer">☼</div>
+            <span class="pill">Yaşam</span>
+          </div>
           <div class="product-body">
-            <p class="category">Yaşam Tarzı</p>
             <h3>Sabah Namazı</h3>
             <p>Günlük takip, seri oluşturma, istatistikler, başarımlar ve motivasyon odaklı kullanım.</p>
           </div>
@@ -166,9 +203,11 @@
         </article>
 
         <article class="product-card">
-          <div class="app-icon medicine">✚</div>
+          <div class="card-top">
+            <div class="app-icon medicine">✚</div>
+            <span class="pill">Sağlık</span>
+          </div>
           <div class="product-body">
-            <p class="category">Sağlık</p>
             <h3>İlaç Rehberim</h3>
             <p>İlaç bilgilerini daha düzenli takip etmek ve ihtiyaç duyduğunuz bilgilere hızlı ulaşmak için pratik rehber.</p>
           </div>
@@ -180,12 +219,15 @@
       </div>
     </section>
 
-    <section class="section game-section" id="games">
+    <section class="site-shell section game-section" id="game">
       <div class="game-copy">
-        <p class="eyebrow">Oyun</p>
+        <p class="eyebrow">Mobil oyun</p>
         <h2>StepRush: Sky Climb</h2>
         <p>Refleks, ritim ve yüksek skor odaklı mobil oyun. Gökyüzüne doğru yükselirken zamanlamanı koru, daha iyi derece için tekrar dene.</p>
-        <a class="button primary" href="apps/sonsuz-merdiven.html">Oyun Detayları</a>
+        <div class="hero-actions">
+          <a class="button primary" href="https://apps.apple.com/tr/app/steprush-sky-climb/id6767199547" target="_blank" rel="noopener">App Store'da Gör</a>
+          <a class="button secondary" href="apps/sonsuz-merdiven.html">Oyun Detayları</a>
+        </div>
       </div>
       <div class="game-visual" aria-hidden="true">
         <span></span>
@@ -196,8 +238,8 @@
       </div>
     </section>
 
-    <section class="section about" id="about">
-      <div class="section-heading">
+    <section class="site-shell section about" id="about">
+      <div>
         <p class="eyebrow">Geliştirici</p>
         <h2>Emir Ocak</h2>
       </div>
@@ -209,7 +251,7 @@
     </section>
   </main>
 
-  <footer class="footer">
+  <footer class="footer site-shell">
     <p>© 2026 Emir Ocak. Tüm hakları saklıdır.</p>
     <p><a href="https://emirocak.github.io">emirocak.github.io</a></p>
   </footer>
