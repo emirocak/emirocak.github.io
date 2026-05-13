@@ -1,128 +1,53 @@
 <!DOCTYPE html>
 <html lang="tr">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>IBAN Cüzdanı - Gizlilik Politikası</title>
-    <style>
-        body {
-            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-            max-width: 720px;
-            margin: 40px auto;
-            padding: 20px;
-            line-height: 1.7;
-            color: #1f2937;
-            background: #f9fafb;
-        }
-        .container {
-            background: white;
-            padding: 40px;
-            border-radius: 12px;
-            box-shadow: 0 4px 12px rgba(0,0,0,0.05);
-        }
-        h1 {
-            color: #007AFF;
-            margin-bottom: 8px;
-        }
-        h2 {
-            color: #111827;
-            margin-top: 32px;
-            font-size: 20px;
-        }
-        .updated {
-            color: #6b7280;
-            font-size: 14px;
-            margin-bottom: 24px;
-        }
-        a { color: #007AFF; }
-        .contact {
-            margin-top: 40px;
-            padding: 16px;
-            background: #f3f4f6;
-            border-radius: 8px;
-        }
-    </style>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Gizlilik Politikası - Emir Ocak</title>
+  <meta name="description" content="Emir Ocak iOS uygulamaları için gizlilik politikası.">
+  <link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-    <div class="container">
-        <h1>IBAN Cüzdanı - Gizlilik Politikası</h1>
-        <p class="updated">Son güncelleme: 30 Nisan 2026</p>
+  <header class="site-header">
+    <nav class="nav" aria-label="Ana menü">
+      <a class="brand" href="index.html"><span class="brand-mark">EO</span><span>Emir Ocak</span></a>
+      <div class="nav-links">
+        <a href="index.html#apps">Uygulamalar</a>
+        <a href="index.html#about">Hakkımda</a>
+      </div>
+    </nav>
+    <section class="hero detail-hero">
+      <div class="hero-copy">
+        <p class="eyebrow">Gizlilik</p>
+        <h1>Gizlilik Politikası</h1>
+        <p class="hero-text">Bu sayfa, Emir Ocak tarafından geliştirilen iOS uygulamalarının genel gizlilik yaklaşımını açıklar.</p>
+      </div>
+    </section>
+  </header>
 
-        <h2>1. Veri Saklama</h2>
-        <p>
-            IBAN Cüzdanı uygulaması, kullanıcının girdiği IBAN, isim ve açıklama bilgilerini
-            yalnızca cihazda yerel olarak (SwiftData / iOS yerel depolama) saklar.
-            Bu veriler hiçbir sunucuya gönderilmez ve üçüncü kişilerle paylaşılmaz.
-        </p>
+  <main>
+    <section class="section">
+      <div class="feature-grid">
+        <article class="feature-item">
+          <h3>Yerel Kullanım</h3>
+          <p>Uygulamalarda kullanıcı deneyimi mümkün olduğunca cihaz üzerinde çalışacak şekilde tasarlanır.</p>
+        </article>
+        <article class="feature-item">
+          <h3>Veri Toplama</h3>
+          <p>App Store sayfalarında ayrıca belirtilmediği sürece kişisel veri toplanmaz.</p>
+        </article>
+        <article class="feature-item">
+          <h3>İletişim</h3>
+          <p>Gizlilikle ilgili sorularınız için emirrocak@gmail.com adresinden ulaşabilirsiniz.</p>
+        </article>
+      </div>
+    </section>
+  </main>
 
-        <h2>2. Reklam Hizmeti (Google AdMob)</h2>
-        <p>
-            Uygulama içinde Google AdMob aracılığıyla banner reklamlar gösterilmektedir.
-            AdMob, kişiselleştirilmiş reklam göstermek için cihaz tanımlayıcıları (IDFA)
-            kullanabilir. Kullanıcı, ilk açılışta gösterilen iOS Takip İzni penceresinden
-            veya iOS Ayarlar → Gizlilik ve Güvenlik → Takip menüsünden bu izni istediği
-            zaman değiştirebilir.
-        </p>
-        <p>
-            İzin verilmediğinde reklamlar gösterilmeye devam eder, ancak kişiselleştirilmiş
-            olmayabilir. Uygulamanın temel işlevleri izinden bağımsız çalışır.
-        </p>
-        <p>
-            Google'ın reklam servisleri için gizlilik politikası:
-            <a href="https://policies.google.com/technologies/ads" target="_blank">
-                policies.google.com/technologies/ads
-            </a>
-        </p>
-
-        <h2>3. Veri Dışa Aktarma</h2>
-        <p>
-            Kullanıcı uygulamadan veri dışa aktardığında oluşan JSON dosyası şifrelenmez.
-            Paylaşılan platforma gönderildikten sonra dosyanın güvenliği kullanıcının
-            sorumluluğundadır.
-        </p>
-
-        <h2>4. Toplanmayan Veriler</h2>
-        <p>
-            IBAN Cüzdanı uygulaması aşağıdaki verileri <strong>toplamaz</strong>:
-        </p>
-        <ul>
-            <li>Konum bilgisi</li>
-            <li>Kişiler / Rehber</li>
-            <li>Fotoğraflar / Galeri</li>
-            <li>Mikrofon / Kamera</li>
-            <li>Sağlık bilgileri</li>
-            <li>Hesap bilgileri (uygulamada hesap sistemi yoktur)</li>
-        </ul>
-
-        <h2>5. KVKK Kapsamındaki Haklarınız</h2>
-        <p>
-            6698 sayılı Kişisel Verilerin Korunması Kanunu (KVKK) 11. madde kapsamındaki
-            haklarınızı (verilerinizi silme, değiştirme, taşıma) uygulama içinden
-            istediğiniz zaman kullanabilirsiniz. Tüm verileriniz cihazınızda
-            saklandığından, uygulamayı silmeniz tüm verilerinizin geri dönüşümsüz olarak
-            silinmesi anlamına gelir.
-        </p>
-
-        <h2>6. Çocukların Gizliliği</h2>
-        <p>
-            Bu uygulama 4+ yaş kategorisinde olup, 13 yaş altı kullanıcılardan bilerek
-            kişisel veri toplamaz. Reklam servisi (AdMob), Google'ın aile politikasına
-            uygun olarak yapılandırılmıştır.
-        </p>
-
-        <h2>7. Politika Değişiklikleri</h2>
-        <p>
-            Bu gizlilik politikası gerektiğinde güncellenebilir. Önemli değişikliklerde
-            kullanıcılar uygulama güncellemesi yoluyla bilgilendirilecektir.
-        </p>
-
-        <div class="contact">
-            <strong>İletişim:</strong><br>
-            Sorularınız ve KVKK kapsamındaki talepleriniz için:<br>
-            E-posta: <a href="mailto:emirrocak@gmail.com">emirrocak@gmail.com</a><br>
-            Geliştirici: Emir Ocak<br>
-            Konum: Hatay, Türkiye
-        </div>
-    </div>
+  <footer class="footer">
+    <p>© 2026 Emir Ocak.</p>
+    <p><a href="index.html">Ana sayfa</a></p>
+  </footer>
 </body>
 </html>
