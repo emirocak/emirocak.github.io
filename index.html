@@ -1,0 +1,536 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Emir Ocak — iOS Developer</title>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --bg: #f9f8f6;
+      --ink: #111;
+      --sub: #888;
+      --line: #e2e2e0;
+      --accent: #ff5500;
+      --radius: 18px;
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      background: var(--bg);
+      color: var(--ink);
+      font-family: -apple-system, BlinkMacSystemFont, "SF Pro Display", "Helvetica Neue", sans-serif;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    /* ── NAV ── */
+    nav {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 0 48px; height: 64px;
+      background: rgba(249,248,246,0.88);
+      backdrop-filter: blur(16px);
+      border-bottom: 1px solid var(--line);
+    }
+    .nav-name {
+      font-size: .88rem; font-weight: 600; letter-spacing: -.2px; color: var(--ink);
+    }
+    .nav-links { display: flex; gap: 32px; }
+    .nav-links a {
+      color: var(--sub); text-decoration: none; font-size: .84rem; font-weight: 500;
+      transition: color .2s;
+    }
+    .nav-links a:hover { color: var(--ink); }
+    .nav-dot {
+      width: 8px; height: 8px; border-radius: 50%;
+      background: var(--accent); flex-shrink: 0;
+    }
+
+    /* ── HERO ── */
+    #hero {
+      padding: 140px 48px 80px;
+      max-width: 1100px; margin: 0 auto;
+      display: grid; grid-template-columns: 1fr 1fr; gap: 80px; align-items: center;
+    }
+    .hero-left {}
+    .hero-label {
+      display: inline-flex; align-items: center; gap: 8px;
+      font-size: .78rem; font-weight: 600; color: var(--sub);
+      letter-spacing: .5px; text-transform: uppercase;
+      margin-bottom: 28px;
+    }
+    .hero-label::before {
+      content: ''; width: 24px; height: 1px; background: var(--sub);
+    }
+    h1 {
+      font-size: clamp(2.8rem, 5vw, 4.5rem);
+      font-weight: 800; letter-spacing: -2.5px;
+      line-height: 1.04; color: var(--ink);
+      margin-bottom: 24px;
+    }
+    h1 .accent { color: var(--accent); }
+    .hero-sub {
+      font-size: 1.05rem; color: var(--sub); line-height: 1.7;
+      margin-bottom: 40px; max-width: 380px;
+    }
+    .hero-actions { display: flex; gap: 12px; flex-wrap: wrap; }
+    .btn {
+      display: inline-flex; align-items: center; gap: 8px;
+      padding: 13px 26px; border-radius: 100px;
+      font-size: .88rem; font-weight: 600;
+      text-decoration: none; transition: all .2s; border: none; cursor: pointer;
+    }
+    .btn-dark { background: var(--ink); color: #fff; }
+    .btn-dark:hover { background: #333; }
+    .btn-outline {
+      background: transparent; color: var(--ink);
+      border: 1.5px solid var(--line);
+    }
+    .btn-outline:hover { border-color: var(--ink); }
+
+    /* Hero right — icon wall */
+    .hero-right {
+      display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px;
+      align-content: center;
+    }
+    .hero-app-icon {
+      aspect-ratio: 1;
+      border-radius: 22px;
+      background: var(--line);
+      overflow: hidden;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 2.4rem;
+      transition: transform .3s cubic-bezier(.34,1.56,.64,1), box-shadow .3s;
+      cursor: default;
+      box-shadow: 0 4px 20px rgba(0,0,0,.08);
+    }
+    .hero-app-icon:hover { transform: scale(1.08) translateY(-4px); box-shadow: 0 12px 32px rgba(0,0,0,.15); }
+    .hero-app-icon img { width: 100%; height: 100%; object-fit: cover; border-radius: 22px; }
+    .hero-app-icon.push { margin-top: 24px; }
+
+    /* ── MARQUEE ── */
+    .marquee-wrap {
+      border-top: 1px solid var(--line);
+      border-bottom: 1px solid var(--line);
+      padding: 18px 0; overflow: hidden;
+      margin: 20px 0;
+    }
+    .marquee-track {
+      display: flex; gap: 0; white-space: nowrap;
+      animation: marquee 28s linear infinite;
+    }
+    .marquee-item {
+      display: inline-flex; align-items: center; gap: 10px;
+      padding: 0 32px; font-size: .85rem; font-weight: 500; color: var(--sub);
+      border-right: 1px solid var(--line);
+      white-space: nowrap;
+    }
+    .marquee-item .dot { width: 5px; height: 5px; border-radius: 50%; background: var(--accent); flex-shrink: 0; }
+    @keyframes marquee { from { transform: translateX(0); } to { transform: translateX(-50%); } }
+
+    /* ── STATS ── */
+    #stats {
+      max-width: 1100px; margin: 0 auto;
+      display: grid; grid-template-columns: repeat(4,1fr);
+      border: 1px solid var(--line); border-radius: 20px;
+      margin: 0 48px 100px;
+      overflow: hidden;
+    }
+    .stat {
+      padding: 40px 36px;
+      border-right: 1px solid var(--line);
+    }
+    .stat:last-child { border-right: none; }
+    .stat-n {
+      font-size: 3rem; font-weight: 800; letter-spacing: -2px;
+      color: var(--ink); line-height: 1;
+    }
+    .stat-n .suf { color: var(--accent); }
+    .stat-l { font-size: .78rem; color: var(--sub); margin-top: 8px; font-weight: 500; }
+
+    /* ── APPS ── */
+    #apps { max-width: 1100px; margin: 0 auto; padding: 0 48px 120px; }
+    .section-head {
+      display: flex; align-items: baseline; justify-content: space-between;
+      margin-bottom: 40px; padding-bottom: 20px;
+      border-bottom: 1px solid var(--line);
+    }
+    .section-head h2 { font-size: 1.5rem; font-weight: 700; letter-spacing: -.5px; }
+    .section-head span { font-size: .83rem; color: var(--sub); }
+
+    .apps-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+      gap: 16px;
+    }
+    .app-card {
+      text-decoration: none; color: var(--ink);
+      border-radius: var(--radius);
+      border: 1px solid var(--line);
+      background: #fff;
+      overflow: hidden;
+      transition: box-shadow .2s, transform .2s, border-color .2s;
+      opacity: 0; transform: translateY(16px);
+    }
+    .app-card.visible {
+      opacity: 1; transform: none;
+      transition: opacity .4s ease, transform .4s ease, box-shadow .2s, border-color .2s;
+    }
+    .app-card:hover {
+      box-shadow: 0 8px 32px rgba(0,0,0,.1);
+      transform: translateY(-3px);
+      border-color: #ccc;
+    }
+    .app-thumb {
+      width: 100%; aspect-ratio: 1;
+      background: #f0eeeb;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 3rem;
+      overflow: hidden;
+    }
+    .app-thumb img { width: 100%; height: 100%; object-fit: cover; border-radius: var(--radius) var(--radius) 0 0; }
+    .app-meta { padding: 14px 16px 18px; }
+    .app-title { font-size: .9rem; font-weight: 700; color: var(--ink); line-height: 1.3; }
+    .app-cat { font-size: .72rem; color: var(--accent); margin-top: 3px; font-weight: 600; text-transform: uppercase; letter-spacing: .4px; }
+    .app-desc { font-size: .78rem; color: var(--sub); margin-top: 7px; line-height: 1.5; }
+
+    /* ── ABOUT ── */
+    #about {
+      background: var(--ink); color: #fff;
+      padding: 120px 48px;
+    }
+    .about-inner { max-width: 1100px; margin: 0 auto; display: grid; grid-template-columns: 1fr 1fr; gap: 80px; align-items: start; }
+    .about-left h2 {
+      font-size: clamp(2rem, 4vw, 3.5rem);
+      font-weight: 800; letter-spacing: -2px; line-height: 1.1;
+      color: #fff; margin-bottom: 0;
+    }
+    .about-left h2 em { font-style: normal; color: var(--accent); }
+    .about-right {}
+    .about-text { font-size: 1rem; line-height: 1.85; color: #aaa; margin-bottom: 20px; }
+    .about-text strong { color: #fff; font-weight: 600; }
+
+    /* ── EXPERIENCE ── */
+    #experience { max-width: 1100px; margin: 0 auto; padding: 100px 48px; }
+    .exp-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 60px; margin-top: 40px; }
+    .exp-col-title { font-size: .75rem; font-weight: 700; letter-spacing: 1.5px; text-transform: uppercase; color: var(--sub); margin-bottom: 28px; }
+    .exp-item { margin-bottom: 36px; }
+    .exp-period { font-size: .78rem; color: var(--accent); font-weight: 600; margin-bottom: 5px; }
+    .exp-title { font-size: 1rem; font-weight: 700; color: var(--ink); }
+    .exp-sub { font-size: .85rem; color: var(--sub); margin-top: 2px; }
+    .exp-desc { font-size: .85rem; color: #666; line-height: 1.7; margin-top: 10px; }
+    .exp-desc li { list-style: none; padding-left: 14px; position: relative; }
+    .exp-desc li::before { content: '–'; position: absolute; left: 0; color: var(--accent); }
+    .exp-desc li + li { margin-top: 4px; }
+    .cert {
+      display: inline-flex; align-items: flex-start; gap: 10px;
+      font-size: .82rem; color: #555; margin-top: 12px;
+      background: #f5f4f2; padding: 10px 14px; border-radius: 10px; line-height: 1.5;
+    }
+
+    /* ── CONTACT ── */
+    #contact { padding: 0 48px 120px; max-width: 1100px; margin: 0 auto; }
+    .contact-box {
+      background: var(--accent); border-radius: 24px;
+      padding: 80px 60px;
+      display: flex; align-items: center; justify-content: space-between; gap: 40px;
+    }
+    .contact-box h2 {
+      font-size: clamp(1.8rem, 3.5vw, 3rem);
+      font-weight: 800; letter-spacing: -1.5px;
+      color: #fff; max-width: 440px; line-height: 1.1;
+    }
+    .contact-links { display: flex; flex-direction: column; gap: 12px; flex-shrink: 0; }
+    .contact-link {
+      display: inline-flex; align-items: center; gap: 10px;
+      padding: 14px 24px; border-radius: 100px;
+      background: rgba(255,255,255,.2);
+      color: #fff; text-decoration: none; font-size: .88rem; font-weight: 600;
+      border: 1.5px solid rgba(255,255,255,.3);
+      transition: background .2s;
+    }
+    .contact-link:hover { background: rgba(255,255,255,.3); }
+
+    /* ── FOOTER ── */
+    footer {
+      text-align: center; padding: 32px 48px;
+      border-top: 1px solid var(--line);
+      font-size: .8rem; color: var(--sub);
+    }
+
+    /* ── REVEAL ── */
+    .reveal { opacity: 0; transform: translateY(24px); transition: opacity .65s ease, transform .65s ease; }
+    .reveal.visible { opacity: 1; transform: none; }
+
+    /* ── RESPONSIVE ── */
+    @media (max-width: 800px) {
+      nav { padding: 0 24px; }
+      .nav-links { display: none; }
+      #hero { grid-template-columns: 1fr; padding: 120px 24px 60px; gap: 48px; }
+      .hero-right { display: none; }
+      #stats { margin: 0 24px 60px; grid-template-columns: repeat(2,1fr); }
+      .stat { padding: 28px 24px; }
+      #apps { padding: 0 24px 80px; }
+      .apps-grid { grid-template-columns: repeat(2,1fr); }
+      #about { padding: 80px 24px; }
+      .about-inner { grid-template-columns: 1fr; gap: 40px; }
+      #experience { padding: 80px 24px; }
+      .exp-grid { grid-template-columns: 1fr; gap: 40px; }
+      #contact { padding: 0 24px 80px; }
+      .contact-box { flex-direction: column; padding: 48px 32px; }
+    }
+  </style>
+</head>
+<body>
+
+<nav>
+  <div style="display:flex;align-items:center;gap:10px">
+    <div class="nav-dot"></div>
+    <span class="nav-name">Emir Ocak</span>
+  </div>
+  <div class="nav-links">
+    <a href="#apps">Apps</a>
+    <a href="#about">About</a>
+    <a href="#experience">Experience</a>
+    <a href="#contact">Contact</a>
+  </div>
+</nav>
+
+<!-- HERO -->
+<section id="hero">
+  <div class="hero-left">
+    <div class="hero-label">iOS Developer &amp; Founder</div>
+    <h1>Building apps<br>people <span class="accent">actually</span><br>use.</h1>
+    <p class="hero-sub">I'm Emir — an indie iOS developer from İskenderun. I work from my own office and have shipped 19 apps on the App Store.</p>
+    <div class="hero-actions">
+      <a href="#apps" class="btn btn-dark">Browse my apps →</a>
+      <a href="#contact" class="btn btn-outline">Say hello</a>
+    </div>
+  </div>
+  <div class="hero-right" id="heroIcons">
+    <!-- filled by JS -->
+  </div>
+</section>
+
+<!-- MARQUEE -->
+<div class="marquee-wrap">
+  <div class="marquee-track" id="marqueeTrack"></div>
+</div>
+
+<!-- STATS -->
+<div id="stats">
+  <div class="stat">
+    <div class="stat-n"><span class="counter" data-target="19">0</span><span class="suf">+</span></div>
+    <div class="stat-l">Apps on App Store</div>
+  </div>
+  <div class="stat">
+    <div class="stat-n"><span class="counter" data-target="1">0</span></div>
+    <div class="stat-l">Own Office</div>
+  </div>
+  <div class="stat">
+    <div class="stat-n"><span class="counter" data-target="5">0</span></div>
+    <div class="stat-l">Years of Swift</div>
+  </div>
+  <div class="stat">
+    <div class="stat-n"><span class="counter" data-target="100">0</span><span class="suf">%</span></div>
+    <div class="stat-l">Independent</div>
+  </div>
+</div>
+
+<!-- APPS -->
+<section id="apps">
+  <div class="section-head reveal">
+    <h2>All 19 apps</h2>
+    <span>Tap to view on App Store</span>
+  </div>
+  <div class="apps-grid" id="appsGrid"></div>
+</section>
+
+<!-- ABOUT -->
+<section id="about">
+  <div class="about-inner">
+    <div class="about-left reveal">
+      <h2>Made with<br><em>real code,</em><br>real intent.</h2>
+    </div>
+    <div class="about-right reveal">
+      <p class="about-text">Born in İskenderun on September 5, 2000. I entered <strong>Iskenderun Technical University</strong> in 2019 as the top-ranked student and graduated with a degree in Computer Engineering in 2024.</p>
+      <p class="about-text">My iOS career started at the <strong>Turkcell "Geleceği Yazanlar"</strong> bootcamp, followed by an internship at <strong>Atmoswere</strong> (Turkcell Group) where I worked on the Fizy team alongside experienced engineers.</p>
+      <p class="about-text">In September 2025, I opened my own office and started building and shipping apps fully independently. 19 apps later, I'm still at it.</p>
+    </div>
+  </div>
+</section>
+
+<!-- EXPERIENCE -->
+<section id="experience">
+  <div class="section-head reveal">
+    <h2>Experience &amp; Education</h2>
+  </div>
+  <div class="exp-grid">
+    <div class="reveal">
+      <div class="exp-col-title">Work</div>
+
+      <div class="exp-item">
+        <div class="exp-period">Sep 2025 — Present</div>
+        <div class="exp-title">Founder &amp; iOS Developer</div>
+        <div class="exp-sub">Own Office — Independent</div>
+        <ul class="exp-desc">
+          <li>Founded and operate an independent iOS studio.</li>
+          <li>Shipped 19 apps across games, productivity, lifestyle &amp; finance.</li>
+          <li>End-to-end ownership: design → code → App Store.</li>
+        </ul>
+      </div>
+
+      <div class="exp-item">
+        <div class="exp-period">Jul 2024 — Aug 2024</div>
+        <div class="exp-title">Intern iOS Developer — Fizy</div>
+        <div class="exp-sub">Atmoswere (Turkcell Group)</div>
+        <ul class="exp-desc">
+          <li>Contributed to live application development.</li>
+          <li>Worked directly with senior iOS engineers.</li>
+          <li>Learned professional app development workflows.</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="reveal">
+      <div class="exp-col-title">Education</div>
+
+      <div class="exp-item">
+        <div class="exp-period">2019 — 2024</div>
+        <div class="exp-title">Computer Engineering</div>
+        <div class="exp-sub">Iskenderun Technical University</div>
+        <div class="exp-desc">Enrolled as the highest-ranked incoming student.</div>
+        <div class="cert">🏆 Gençlere Yatırım Geleceğe Yazılım 3.0<br>Swift ile iOS Uygulama Geliştirme</div>
+      </div>
+
+      <div class="exp-item">
+        <div class="exp-period">2016 — 2017</div>
+        <div class="exp-title">Güney Elit Anadolu High School</div>
+      </div>
+
+      <div class="exp-item">
+        <div class="exp-period">2013 — 2016</div>
+        <div class="exp-title">Şemsettin Mürsaloğlu Anadolu High School</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section id="contact">
+  <div class="contact-box reveal">
+    <h2>Got an idea?<br>Let's talk.</h2>
+    <div class="contact-links">
+      <a href="mailto:emirrocak@gmail.com" class="contact-link">
+        ✉ emirrocak@gmail.com
+      </a>
+      <a href="https://apps.apple.com/tr/developer/emrallah-ocak" target="_blank" rel="noopener" class="contact-link">
+        🍎 App Store Profile
+      </a>
+    </div>
+  </div>
+</section>
+
+<footer>
+  © 2026 Emir Ocak · İskenderun, Turkey
+</footer>
+
+<script>
+const APPS = [
+  { name:'Süperlig Quiz',       url:'https://apps.apple.com/tr/app/superlig-quiz/id6801504046',              cat:'Sports · Games', icon:'https://is1-ssl.mzstatic.com/image/thumb/Purple221/v4/52/23/84/522384a2-8f28-73c1-ddf0-39559d6b7f54/AppIcon-0-0-1x_U007emarketing-0-8-0-85-220.png/512x512bb.jpg',       desc:'Türkiye Süper Ligi\'ni ne kadar iyi biliyorsun? 2010–2026 sezonlarını kapsayan trivia quiz.' },
+  { name:'Focus Lock',           url:'https://apps.apple.com/tr/app/focus-lock/id6800373052',                cat:'Productivity',   icon:'https://is1-ssl.mzstatic.com/image/thumb/Purple211/v4/12/c6/e7/12c6e7d4-e68e-f517-9673-daaba0fb36ba/AppIcon-0-0-1x_U007emarketing-0-8-0-85-220.png/512x512bb.jpg',       desc:'Odaklanma süresi boyunca telefonu kilitle, dikkat dağıtıcılardan uzak dur.' },
+  { name:'Yeni Evimiz',          url:'https://apps.apple.com/tr/app/yeni-evimiz/id6799919680',               cat:'Lifestyle',      icon:'https://is1-ssl.mzstatic.com/image/thumb/Purple221/v4/47/f6/99/47f6996f-a16c-7584-99d9-ed555435838c/AppIcon-0-0-1x_U007ephone-0-1-85-220.png/512x512bb.jpg',          desc:'Düğün organizasyonunu kolaylaştır. Davetliler, görevler ve geri sayım hep bir arada.' },
+  { name:'Orbit Painter',        url:'https://apps.apple.com/tr/app/orbit-painter/id6798334990',             cat:'Games',          icon:'https://is1-ssl.mzstatic.com/image/thumb/Purple221/v4/b6/54/3f/b6543f1a-3597-b577-0b22-933c34ed057e/AppIcon-0-0-1x_U007epad-0-1-85-220.png/512x512bb.jpg',            desc:'Renk ve ritim dolu arcade oyunu. Orbitini doğru boyayarak puanını artır.' },
+  { name:'Sohbet Raporu',        url:'https://apps.apple.com/tr/app/sohbet-raporu/id6796978383',             cat:'Social',         icon:'https://is1-ssl.mzstatic.com/image/thumb/Purple221/v4/2c/fe/5c/2cfe5cf9-90d0-e36b-6b62-0d71cd97f702/AppIcon-0-0-1x_U007ephone-0-1-85-220.png/512x512bb.jpg',         desc:'WhatsApp sohbetini analiz et; kim daha çok yazıyor, en aktif saatler, kelime istatistikleri.' },
+  { name:'Abonelik Düzenleyici', url:'https://apps.apple.com/tr/app/abonelik-d%C3%BCzenleyici/id6796974534', cat:'Finance',        icon:'https://is1-ssl.mzstatic.com/image/thumb/Purple211/v4/d7/3b/f9/d73bf966-b306-0dfe-6877-e726434a0887/AppIcon-0-0-1x_U007epad-0-1-85-220.png/512x512bb.jpg',           desc:'Tüm aboneliklerini tek ekranda takip et, yenileme tarihlerini kaçırma.' },
+  { name:'Şeffaf Şartlar',       url:'https://apps.apple.com/tr/app/%C5%9Feffaf-%C5%9Fartlar/id6787413569',  cat:'Utilities',      icon:'https://is1-ssl.mzstatic.com/image/thumb/Purple221/v4/69/f3/95/69f395ae-a4da-1637-6890-6d77c9cec29b/AppIcon-0-0-1x_U007epad-0-1-85-220.png/512x512bb.jpg',           desc:'Kullanım koşullarını sade Türkçeye çevir, ne imzaladığını gerçekten bil.' },
+  { name:'Bug Fixer',            url:'https://apps.apple.com/tr/app/bug-fixer/id6769438487',                 cat:'Games',          icon:'https://is1-ssl.mzstatic.com/image/thumb/Purple221/v4/8b/09/f6/8b09f65a-e0d6-0abb-d33e-be9960adb91a/AppIcon-0-0-1x_U007epad-0-1-85-220.png/512x512bb.jpg',            desc:'Kodlardaki hataları bul ve düzelt. Eğlenceli bir programlama quiz oyunu.' },
+  { name:'Ring Loop',            url:'https://apps.apple.com/tr/app/ring-loop/id6770876779',                 cat:'Games',          icon:'https://is1-ssl.mzstatic.com/image/thumb/Purple221/v4/8d/05/cd/8d05cde3-5153-6cfd-9337-1b7fc3d4eb3c/AppIcon-0-0-1x_U007epad-0-1-85-220.png/512x512bb.jpg',            desc:'Halkaları doğru sıraya dizmek için reflekslerini ve stratejini kullan.' },
+  { name:'Gezi Türkiye Rehberi', url:'https://apps.apple.com/tr/app/gezi-t%C3%BCrkiye-rehberi/id6769422537', cat:'Travel',         icon:'https://is1-ssl.mzstatic.com/image/thumb/Purple211/v4/6e/fc/8a/6efc8ab2-c651-e0e6-913c-9a6afb5efe8a/AppIcon-0-0-1x_U007emarketing-0-8-0-85-220.png/512x512bb.jpg',     desc:'Türkiye\'nin şehir şehir görülecek yerleri, detaylı seyahat rehberi.' },
+  { name:'İlaç Rehberim',        url:'https://apps.apple.com/tr/app/i-la%C3%A7-rehberim/id6762822990',      cat:'Medical',        icon:'https://is1-ssl.mzstatic.com/image/thumb/Purple211/v4/13/aa/80/13aa8051-d6de-64bf-f6c0-b9a927e64961/AppIcon-0-0-1x_U007epad-0-1-85-220.png/512x512bb.jpg',           desc:'324 yerel ilacın bilgisi, yan etkileri ve kullanım talimatları çevrimdışı.' },
+  { name:'StepRush: Sky Climb',  url:'https://apps.apple.com/tr/app/steprush-sky-climb/id6767199547',        cat:'Games',          icon:'https://is1-ssl.mzstatic.com/image/thumb/Purple221/v4/05/9e/93/059e930a-883e-5e71-3c46-735f54831cd4/AppIcon-0-0-1x_U007epad-0-1-85-220.png/512x512bb.jpg',           desc:'Yukarı tırman, engelleri aş. Hızlı refleks isteyen tek dokunuş arcade oyunu.' },
+  { name:'Kredi Kartı Yönetimi', url:'https://apps.apple.com/tr/app/kredi-kart%C4%B1-y%C3%B6netimi/id6760220577', cat:'Finance',  icon:'https://is1-ssl.mzstatic.com/image/thumb/Purple221/v4/9a/b2/7c/9ab27c7d-f982-e494-7322-c7715a85f539/AppIcon-0-0-1x_U007epad-0-1-85-220.png/512x512bb.jpg',      desc:'Birden fazla kartı takip et, harcamaları kategorile, limit uyarıları al.' },
+  { name:'Barkod Defteri',       url:'https://apps.apple.com/tr/app/barkod-defteri/id6753679244',            cat:'Utilities',      icon:'https://is1-ssl.mzstatic.com/image/thumb/Purple221/v4/07/7a/62/077a624d-68e0-e092-4613-809854b32d0a/AppIcon-0-0-1x_U007epad-0-1-85-220.png/512x512bb.jpg',          desc:'Ürünlerin barkodlarını tara, kaydet ve listele. Stok takibi hiç bu kadar kolay olmamıştı.' },
+  { name:'Sabah Namazı',         url:'https://apps.apple.com/tr/app/sabah-namaz%C4%B1/id6759320181',        cat:'Lifestyle',      icon:'https://is1-ssl.mzstatic.com/image/thumb/Purple221/v4/d2/eb/70/d2eb701b-43e3-8f11-4e05-1afff0e9abb6/AppIcon-0-0-1x_U007epad-0-1-85-220.png/512x512bb.jpg',          desc:'Sabah namazı vakitlerini takip et, konum bazlı ezan hatırlatıcısı.' },
+  { name:'Borç Takip',           url:'https://apps.apple.com/tr/app/borc-takip/id6755033975',                cat:'Finance',        icon:'https://is1-ssl.mzstatic.com/image/thumb/Purple221/v4/d2/e9/d1/d2e9d1d3-b13b-2592-daab-7bd61320c1d7/AppIcon-0-0-1x_U007epad-0-1-85-220.png/512x512bb.jpg',          desc:'Kime ne borçlusun, kimden ne alacaksın? Borç ve alacaklarını netleştir.' },
+  { name:'Drivetsy',             url:'https://apps.apple.com/tr/app/drivetsy/id6753587504',                  cat:'Automotive',     icon:'https://is1-ssl.mzstatic.com/image/thumb/Purple221/v4/fc/06/ed/fc06ed0f-5d0b-5e64-cfb3-287b35f50484/AppIcon-0-0-1x_U007epad-0-1-85-220.png/512x512bb.jpg',          desc:'Araç masraflarını takip et, modeller karşılaştır, sahiplik maliyetini hesapla.' },
+  { name:'KitchenMate',          url:'https://apps.apple.com/tr/app/kitchenmate/id6752761314',               cat:'Food & Drink',   icon:'https://is1-ssl.mzstatic.com/image/thumb/Purple211/v4/ee/0b/c2/ee0bc21b-151d-2576-ed36-ae0594ea1eed/AppIcon-0-0-1x_U007epad-0-1-85-220.png/512x512bb.jpg',          desc:'Mutfaktaki malzemeleri kaydet, tarifler öner, alışveriş listesi oluştur.' },
+  { name:'IBAN Cüzdanı',         url:'https://apps.apple.com/tr/app/iban-c%C3%BCzdan%C4%B1/id6752243560',  cat:'Finance',        icon:'https://is1-ssl.mzstatic.com/image/thumb/Purple221/v4/14/06/da/1406da74-3874-a741-62ab-0621718d86c5/AppIcon-0-0-1x_U007epad-0-1-85-220.png/512x512bb.jpg',          desc:'IBAN\'larını güvenle sakla, tek dokunuşla kopyala veya paylaş.' },
+];
+
+/* ── Hero icon wall (first 9 apps) ── */
+const heroGrid = document.getElementById('heroIcons');
+APPS.slice(0, 9).forEach((app, i) => {
+  const div = document.createElement('div');
+  div.className = 'hero-app-icon' + (i % 3 === 1 ? ' push' : '');
+  div.innerHTML = `<img src="${app.icon}" alt="${app.name}" />`;
+  heroGrid.appendChild(div);
+});
+
+/* ── Marquee ── */
+const track = document.getElementById('marqueeTrack');
+[...APPS, ...APPS].forEach(app => {
+  const item = document.createElement('div');
+  item.className = 'marquee-item';
+  item.innerHTML = `<span class="dot"></span>${app.name}`;
+  track.appendChild(item);
+});
+
+/* ── Apps grid ── */
+const grid = document.getElementById('appsGrid');
+APPS.forEach((app, i) => {
+  const card = document.createElement('a');
+  card.className = 'app-card';
+  card.href = app.url;
+  card.target = '_blank';
+  card.rel = 'noopener';
+  card.innerHTML = `
+    <div class="app-thumb"><img src="${app.icon}" alt="${app.name}" /></div>
+    <div class="app-meta">
+      <div class="app-cat">${app.cat}</div>
+      <div class="app-title">${app.name}</div>
+      <div class="app-desc">${app.desc}</div>
+    </div>`;
+  card.style.transitionDelay = `${(i % 5) * 50}ms`;
+  grid.appendChild(card);
+});
+
+/* ── Counters ── */
+function runCounter(el) {
+  const target = +el.dataset.target;
+  const dur = 1400, step = target / (dur / 16);
+  let v = 0;
+  const t = setInterval(() => {
+    v = Math.min(v + step, target);
+    el.textContent = Math.floor(v);
+    if (v >= target) clearInterval(t);
+  }, 16);
+}
+
+/* ── Intersection observers ── */
+const io = new IntersectionObserver(entries => {
+  entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visible'); io.unobserve(e.target); } });
+}, { threshold: 0.1 });
+
+document.querySelectorAll('.reveal').forEach(el => io.observe(el));
+
+const cardIO = new IntersectionObserver(entries => {
+  entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visible'); cardIO.unobserve(e.target); } });
+}, { threshold: 0.05 });
+
+document.querySelectorAll('.app-card').forEach(el => cardIO.observe(el));
+
+const statsIO = new IntersectionObserver(entries => {
+  entries.forEach(e => {
+    if (e.isIntersecting) {
+      e.target.querySelectorAll('.counter').forEach(runCounter);
+      statsIO.unobserve(e.target);
+    }
+  });
+}, { threshold: 0.5 });
+statsIO.observe(document.getElementById('stats'));
+</script>
+</body>
+</html>
