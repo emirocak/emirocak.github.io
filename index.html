@@ -154,11 +154,31 @@
     #apps { max-width: 1100px; margin: 0 auto; padding: 0 48px 120px; }
     .section-head {
       display: flex; align-items: baseline; justify-content: space-between;
-      margin-bottom: 40px; padding-bottom: 20px;
+      margin-bottom: 28px; padding-bottom: 20px;
       border-bottom: 1px solid var(--line);
     }
     .section-head h2 { font-size: 1.5rem; font-weight: 700; letter-spacing: -.5px; }
     .section-head span { font-size: .83rem; color: var(--sub); }
+
+    /* Filter tabs */
+    .filter-tabs {
+      display: flex; gap: 8px; flex-wrap: wrap; margin-bottom: 32px;
+    }
+    .filter-btn {
+      padding: 8px 20px; border-radius: 100px;
+      font-size: .83rem; font-weight: 600; cursor: pointer;
+      border: 1.5px solid var(--line); background: transparent;
+      color: var(--sub); transition: all .2s;
+    }
+    .filter-btn:hover { border-color: #bbb; color: var(--ink); }
+    .filter-btn.active {
+      background: var(--ink); color: #fff; border-color: var(--ink);
+    }
+
+    /* Hide/show cards */
+    .app-card.hidden {
+      display: none;
+    }
 
     .apps-grid {
       display: grid;
@@ -342,8 +362,14 @@
 <!-- APPS -->
 <section id="apps">
   <div class="section-head reveal">
-    <h2>All 19 apps</h2>
+    <h2>19 Apps</h2>
     <span>Tap to view on App Store</span>
+  </div>
+  <div class="filter-tabs reveal">
+    <button class="filter-btn active" data-filter="all">Tümü <span id="count-all"></span></button>
+    <button class="filter-btn" data-filter="game">🎮 Oyunlar <span id="count-game"></span></button>
+    <button class="filter-btn" data-filter="finance">💰 Finans & Araçlar <span id="count-finance"></span></button>
+    <button class="filter-btn" data-filter="life">🌿 Yaşam & Sağlık <span id="count-life"></span></button>
   </div>
   <div class="apps-grid" id="appsGrid"></div>
 </section>
@@ -439,25 +465,25 @@
 
 <script>
 const APPS = [
-  { name:'Süperlig Quiz',       url:'https://apps.apple.com/tr/app/superlig-quiz/id6801504046',              cat:'Sports · Games', icon:'https://is1-ssl.mzstatic.com/image/thumb/Purple221/v4/52/23/84/522384a2-8f28-73c1-ddf0-39559d6b7f54/AppIcon-0-0-1x_U007emarketing-0-8-0-85-220.png/512x512bb.jpg',       desc:'Türkiye Süper Ligi\'ni ne kadar iyi biliyorsun? 2010–2026 sezonlarını kapsayan trivia quiz.' },
-  { name:'Focus Lock',           url:'https://apps.apple.com/tr/app/focus-lock/id6800373052',                cat:'Productivity',   icon:'https://is1-ssl.mzstatic.com/image/thumb/Purple211/v4/12/c6/e7/12c6e7d4-e68e-f517-9673-daaba0fb36ba/AppIcon-0-0-1x_U007emarketing-0-8-0-85-220.png/512x512bb.jpg',       desc:'Odaklanma süresi boyunca telefonu kilitle, dikkat dağıtıcılardan uzak dur.' },
-  { name:'Yeni Evimiz',          url:'https://apps.apple.com/tr/app/yeni-evimiz/id6799919680',               cat:'Lifestyle',      icon:'https://is1-ssl.mzstatic.com/image/thumb/Purple221/v4/47/f6/99/47f6996f-a16c-7584-99d9-ed555435838c/AppIcon-0-0-1x_U007ephone-0-1-85-220.png/512x512bb.jpg',          desc:'Düğün organizasyonunu kolaylaştır. Davetliler, görevler ve geri sayım hep bir arada.' },
-  { name:'Orbit Painter',        url:'https://apps.apple.com/tr/app/orbit-painter/id6798334990',             cat:'Games',          icon:'https://is1-ssl.mzstatic.com/image/thumb/Purple221/v4/b6/54/3f/b6543f1a-3597-b577-0b22-933c34ed057e/AppIcon-0-0-1x_U007epad-0-1-85-220.png/512x512bb.jpg',            desc:'Renk ve ritim dolu arcade oyunu. Orbitini doğru boyayarak puanını artır.' },
-  { name:'Sohbet Raporu',        url:'https://apps.apple.com/tr/app/sohbet-raporu/id6796978383',             cat:'Social',         icon:'https://is1-ssl.mzstatic.com/image/thumb/Purple221/v4/2c/fe/5c/2cfe5cf9-90d0-e36b-6b62-0d71cd97f702/AppIcon-0-0-1x_U007ephone-0-1-85-220.png/512x512bb.jpg',         desc:'WhatsApp sohbetini analiz et; kim daha çok yazıyor, en aktif saatler, kelime istatistikleri.' },
-  { name:'Abonelik Düzenleyici', url:'https://apps.apple.com/tr/app/abonelik-d%C3%BCzenleyici/id6796974534', cat:'Finance',        icon:'https://is1-ssl.mzstatic.com/image/thumb/Purple211/v4/d7/3b/f9/d73bf966-b306-0dfe-6877-e726434a0887/AppIcon-0-0-1x_U007epad-0-1-85-220.png/512x512bb.jpg',           desc:'Tüm aboneliklerini tek ekranda takip et, yenileme tarihlerini kaçırma.' },
-  { name:'Şeffaf Şartlar',       url:'https://apps.apple.com/tr/app/%C5%9Feffaf-%C5%9Fartlar/id6787413569',  cat:'Utilities',      icon:'https://is1-ssl.mzstatic.com/image/thumb/Purple221/v4/69/f3/95/69f395ae-a4da-1637-6890-6d77c9cec29b/AppIcon-0-0-1x_U007epad-0-1-85-220.png/512x512bb.jpg',           desc:'Kullanım koşullarını sade Türkçeye çevir, ne imzaladığını gerçekten bil.' },
-  { name:'Bug Fixer',            url:'https://apps.apple.com/tr/app/bug-fixer/id6769438487',                 cat:'Games',          icon:'https://is1-ssl.mzstatic.com/image/thumb/Purple221/v4/8b/09/f6/8b09f65a-e0d6-0abb-d33e-be9960adb91a/AppIcon-0-0-1x_U007epad-0-1-85-220.png/512x512bb.jpg',            desc:'Kodlardaki hataları bul ve düzelt. Eğlenceli bir programlama quiz oyunu.' },
-  { name:'Ring Loop',            url:'https://apps.apple.com/tr/app/ring-loop/id6770876779',                 cat:'Games',          icon:'https://is1-ssl.mzstatic.com/image/thumb/Purple221/v4/8d/05/cd/8d05cde3-5153-6cfd-9337-1b7fc3d4eb3c/AppIcon-0-0-1x_U007epad-0-1-85-220.png/512x512bb.jpg',            desc:'Halkaları doğru sıraya dizmek için reflekslerini ve stratejini kullan.' },
-  { name:'Gezi Türkiye Rehberi', url:'https://apps.apple.com/tr/app/gezi-t%C3%BCrkiye-rehberi/id6769422537', cat:'Travel',         icon:'https://is1-ssl.mzstatic.com/image/thumb/Purple211/v4/6e/fc/8a/6efc8ab2-c651-e0e6-913c-9a6afb5efe8a/AppIcon-0-0-1x_U007emarketing-0-8-0-85-220.png/512x512bb.jpg',     desc:'Türkiye\'nin şehir şehir görülecek yerleri, detaylı seyahat rehberi.' },
-  { name:'İlaç Rehberim',        url:'https://apps.apple.com/tr/app/i-la%C3%A7-rehberim/id6762822990',      cat:'Medical',        icon:'https://is1-ssl.mzstatic.com/image/thumb/Purple211/v4/13/aa/80/13aa8051-d6de-64bf-f6c0-b9a927e64961/AppIcon-0-0-1x_U007epad-0-1-85-220.png/512x512bb.jpg',           desc:'324 yerel ilacın bilgisi, yan etkileri ve kullanım talimatları çevrimdışı.' },
-  { name:'StepRush: Sky Climb',  url:'https://apps.apple.com/tr/app/steprush-sky-climb/id6767199547',        cat:'Games',          icon:'https://is1-ssl.mzstatic.com/image/thumb/Purple221/v4/05/9e/93/059e930a-883e-5e71-3c46-735f54831cd4/AppIcon-0-0-1x_U007epad-0-1-85-220.png/512x512bb.jpg',           desc:'Yukarı tırman, engelleri aş. Hızlı refleks isteyen tek dokunuş arcade oyunu.' },
-  { name:'Kredi Kartı Yönetimi', url:'https://apps.apple.com/tr/app/kredi-kart%C4%B1-y%C3%B6netimi/id6760220577', cat:'Finance',  icon:'https://is1-ssl.mzstatic.com/image/thumb/Purple221/v4/9a/b2/7c/9ab27c7d-f982-e494-7322-c7715a85f539/AppIcon-0-0-1x_U007epad-0-1-85-220.png/512x512bb.jpg',      desc:'Birden fazla kartı takip et, harcamaları kategorile, limit uyarıları al.' },
-  { name:'Barkod Defteri',       url:'https://apps.apple.com/tr/app/barkod-defteri/id6753679244',            cat:'Utilities',      icon:'https://is1-ssl.mzstatic.com/image/thumb/Purple221/v4/07/7a/62/077a624d-68e0-e092-4613-809854b32d0a/AppIcon-0-0-1x_U007epad-0-1-85-220.png/512x512bb.jpg',          desc:'Ürünlerin barkodlarını tara, kaydet ve listele. Stok takibi hiç bu kadar kolay olmamıştı.' },
-  { name:'Sabah Namazı',         url:'https://apps.apple.com/tr/app/sabah-namaz%C4%B1/id6759320181',        cat:'Lifestyle',      icon:'https://is1-ssl.mzstatic.com/image/thumb/Purple221/v4/d2/eb/70/d2eb701b-43e3-8f11-4e05-1afff0e9abb6/AppIcon-0-0-1x_U007epad-0-1-85-220.png/512x512bb.jpg',          desc:'Sabah namazı vakitlerini takip et, konum bazlı ezan hatırlatıcısı.' },
-  { name:'Borç Takip',           url:'https://apps.apple.com/tr/app/borc-takip/id6755033975',                cat:'Finance',        icon:'https://is1-ssl.mzstatic.com/image/thumb/Purple221/v4/d2/e9/d1/d2e9d1d3-b13b-2592-daab-7bd61320c1d7/AppIcon-0-0-1x_U007epad-0-1-85-220.png/512x512bb.jpg',          desc:'Kime ne borçlusun, kimden ne alacaksın? Borç ve alacaklarını netleştir.' },
-  { name:'Drivetsy',             url:'https://apps.apple.com/tr/app/drivetsy/id6753587504',                  cat:'Automotive',     icon:'https://is1-ssl.mzstatic.com/image/thumb/Purple221/v4/fc/06/ed/fc06ed0f-5d0b-5e64-cfb3-287b35f50484/AppIcon-0-0-1x_U007epad-0-1-85-220.png/512x512bb.jpg',          desc:'Araç masraflarını takip et, modeller karşılaştır, sahiplik maliyetini hesapla.' },
-  { name:'KitchenMate',          url:'https://apps.apple.com/tr/app/kitchenmate/id6752761314',               cat:'Food & Drink',   icon:'https://is1-ssl.mzstatic.com/image/thumb/Purple211/v4/ee/0b/c2/ee0bc21b-151d-2576-ed36-ae0594ea1eed/AppIcon-0-0-1x_U007epad-0-1-85-220.png/512x512bb.jpg',          desc:'Mutfaktaki malzemeleri kaydet, tarifler öner, alışveriş listesi oluştur.' },
-  { name:'IBAN Cüzdanı',         url:'https://apps.apple.com/tr/app/iban-c%C3%BCzdan%C4%B1/id6752243560',  cat:'Finance',        icon:'https://is1-ssl.mzstatic.com/image/thumb/Purple221/v4/14/06/da/1406da74-3874-a741-62ab-0621718d86c5/AppIcon-0-0-1x_U007epad-0-1-85-220.png/512x512bb.jpg',          desc:'IBAN\'larını güvenle sakla, tek dokunuşla kopyala veya paylaş.' },
+  { name:'Süperlig Quiz',       filter:'game',    url:'https://apps.apple.com/tr/app/superlig-quiz/id6801504046',              cat:'Oyun', icon:'https://is1-ssl.mzstatic.com/image/thumb/Purple221/v4/52/23/84/522384a2-8f28-73c1-ddf0-39559d6b7f54/AppIcon-0-0-1x_U007emarketing-0-8-0-85-220.png/512x512bb.jpg',       desc:'Türkiye Süper Ligi\'ni ne kadar iyi biliyorsun? 2010–2026 sezonlarını kapsayan trivia quiz.' },
+  { name:'Orbit Painter',       filter:'game',    url:'https://apps.apple.com/tr/app/orbit-painter/id6798334990',             cat:'Oyun', icon:'https://is1-ssl.mzstatic.com/image/thumb/Purple221/v4/b6/54/3f/b6543f1a-3597-b577-0b22-933c34ed057e/AppIcon-0-0-1x_U007epad-0-1-85-220.png/512x512bb.jpg',            desc:'Renk ve ritim dolu arcade oyunu. Orbitini doğru boyayarak puanını artır.' },
+  { name:'Bug Fixer',           filter:'game',    url:'https://apps.apple.com/tr/app/bug-fixer/id6769438487',                 cat:'Oyun', icon:'https://is1-ssl.mzstatic.com/image/thumb/Purple221/v4/8b/09/f6/8b09f65a-e0d6-0abb-d33e-be9960adb91a/AppIcon-0-0-1x_U007epad-0-1-85-220.png/512x512bb.jpg',            desc:'Kodlardaki hataları bul ve düzelt. Eğlenceli bir programlama quiz oyunu.' },
+  { name:'Ring Loop',           filter:'game',    url:'https://apps.apple.com/tr/app/ring-loop/id6770876779',                 cat:'Oyun', icon:'https://is1-ssl.mzstatic.com/image/thumb/Purple221/v4/8d/05/cd/8d05cde3-5153-6cfd-9337-1b7fc3d4eb3c/AppIcon-0-0-1x_U007epad-0-1-85-220.png/512x512bb.jpg',            desc:'Halkaları doğru sıraya dizmek için reflekslerini ve stratejini kullan.' },
+  { name:'StepRush: Sky Climb', filter:'game',    url:'https://apps.apple.com/tr/app/steprush-sky-climb/id6767199547',        cat:'Oyun', icon:'https://is1-ssl.mzstatic.com/image/thumb/Purple221/v4/05/9e/93/059e930a-883e-5e71-3c46-735f54831cd4/AppIcon-0-0-1x_U007epad-0-1-85-220.png/512x512bb.jpg',           desc:'Yukarı tırman, engelleri aş. Hızlı refleks isteyen tek dokunuş arcade oyunu.' },
+  { name:'Abonelik Düzenleyici',filter:'finance', url:'https://apps.apple.com/tr/app/abonelik-d%C3%BCzenleyici/id6796974534', cat:'Finans & Araçlar', icon:'https://is1-ssl.mzstatic.com/image/thumb/Purple211/v4/d7/3b/f9/d73bf966-b306-0dfe-6877-e726434a0887/AppIcon-0-0-1x_U007epad-0-1-85-220.png/512x512bb.jpg',   desc:'Tüm aboneliklerini tek ekranda takip et, yenileme tarihlerini kaçırma.' },
+  { name:'Şeffaf Şartlar',      filter:'finance', url:'https://apps.apple.com/tr/app/%C5%9Feffaf-%C5%9Fartlar/id6787413569',  cat:'Finans & Araçlar', icon:'https://is1-ssl.mzstatic.com/image/thumb/Purple221/v4/69/f3/95/69f395ae-a4da-1637-6890-6d77c9cec29b/AppIcon-0-0-1x_U007epad-0-1-85-220.png/512x512bb.jpg',   desc:'Kullanım koşullarını sade Türkçeye çevir, ne imzaladığını gerçekten bil.' },
+  { name:'Kredi Kartı Yönetimi',filter:'finance', url:'https://apps.apple.com/tr/app/kredi-kart%C4%B1-y%C3%B6netimi/id6760220577', cat:'Finans & Araçlar', icon:'https://is1-ssl.mzstatic.com/image/thumb/Purple221/v4/9a/b2/7c/9ab27c7d-f982-e494-7322-c7715a85f539/AppIcon-0-0-1x_U007epad-0-1-85-220.png/512x512bb.jpg', desc:'Birden fazla kartı takip et, harcamaları kategorile, limit uyarıları al.' },
+  { name:'Barkod Defteri',      filter:'finance', url:'https://apps.apple.com/tr/app/barkod-defteri/id6753679244',            cat:'Finans & Araçlar', icon:'https://is1-ssl.mzstatic.com/image/thumb/Purple221/v4/07/7a/62/077a624d-68e0-e092-4613-809854b32d0a/AppIcon-0-0-1x_U007epad-0-1-85-220.png/512x512bb.jpg',   desc:'Ürünlerin barkodlarını tara, kaydet ve listele. Stok takibi hiç bu kadar kolay olmamıştı.' },
+  { name:'Borç Takip',          filter:'finance', url:'https://apps.apple.com/tr/app/borc-takip/id6755033975',                cat:'Finans & Araçlar', icon:'https://is1-ssl.mzstatic.com/image/thumb/Purple221/v4/d2/e9/d1/d2e9d1d3-b13b-2592-daab-7bd61320c1d7/AppIcon-0-0-1x_U007epad-0-1-85-220.png/512x512bb.jpg',   desc:'Kime ne borçlusun, kimden ne alacaksın? Borç ve alacaklarını netleştir.' },
+  { name:'Drivetsy',            filter:'finance', url:'https://apps.apple.com/tr/app/drivetsy/id6753587504',                  cat:'Finans & Araçlar', icon:'https://is1-ssl.mzstatic.com/image/thumb/Purple221/v4/fc/06/ed/fc06ed0f-5d0b-5e64-cfb3-287b35f50484/AppIcon-0-0-1x_U007epad-0-1-85-220.png/512x512bb.jpg',   desc:'Araç masraflarını takip et, modeller karşılaştır, sahiplik maliyetini hesapla.' },
+  { name:'IBAN Cüzdanı',        filter:'finance', url:'https://apps.apple.com/tr/app/iban-c%C3%BCzdan%C4%B1/id6752243560',  cat:'Finans & Araçlar', icon:'https://is1-ssl.mzstatic.com/image/thumb/Purple221/v4/14/06/da/1406da74-3874-a741-62ab-0621718d86c5/AppIcon-0-0-1x_U007epad-0-1-85-220.png/512x512bb.jpg',   desc:'IBAN\'larını güvenle sakla, tek dokunuşla kopyala veya paylaş.' },
+  { name:'Focus Lock',          filter:'life',    url:'https://apps.apple.com/tr/app/focus-lock/id6800373052',                cat:'Yaşam & Sağlık', icon:'https://is1-ssl.mzstatic.com/image/thumb/Purple211/v4/12/c6/e7/12c6e7d4-e68e-f517-9673-daaba0fb36ba/AppIcon-0-0-1x_U007emarketing-0-8-0-85-220.png/512x512bb.jpg', desc:'Odaklanma süresi boyunca telefonu kilitle, dikkat dağıtıcılardan uzak dur.' },
+  { name:'Yeni Evimiz',         filter:'life',    url:'https://apps.apple.com/tr/app/yeni-evimiz/id6799919680',               cat:'Yaşam & Sağlık', icon:'https://is1-ssl.mzstatic.com/image/thumb/Purple221/v4/47/f6/99/47f6996f-a16c-7584-99d9-ed555435838c/AppIcon-0-0-1x_U007ephone-0-1-85-220.png/512x512bb.jpg',    desc:'Düğün organizasyonunu kolaylaştır. Davetliler, görevler ve geri sayım hep bir arada.' },
+  { name:'Sohbet Raporu',       filter:'life',    url:'https://apps.apple.com/tr/app/sohbet-raporu/id6796978383',             cat:'Yaşam & Sağlık', icon:'https://is1-ssl.mzstatic.com/image/thumb/Purple221/v4/2c/fe/5c/2cfe5cf9-90d0-e36b-6b62-0d71cd97f702/AppIcon-0-0-1x_U007ephone-0-1-85-220.png/512x512bb.jpg',    desc:'WhatsApp sohbetini analiz et; kim daha çok yazıyor, en aktif saatler, kelime istatistikleri.' },
+  { name:'Gezi Türkiye Rehberi',filter:'life',    url:'https://apps.apple.com/tr/app/gezi-t%C3%BCrkiye-rehberi/id6769422537', cat:'Yaşam & Sağlık', icon:'https://is1-ssl.mzstatic.com/image/thumb/Purple211/v4/6e/fc/8a/6efc8ab2-c651-e0e6-913c-9a6afb5efe8a/AppIcon-0-0-1x_U007emarketing-0-8-0-85-220.png/512x512bb.jpg', desc:'Türkiye\'nin şehir şehir görülecek yerleri, detaylı seyahat rehberi.' },
+  { name:'İlaç Rehberim',       filter:'life',    url:'https://apps.apple.com/tr/app/i-la%C3%A7-rehberim/id6762822990',      cat:'Yaşam & Sağlık', icon:'https://is1-ssl.mzstatic.com/image/thumb/Purple211/v4/13/aa/80/13aa8051-d6de-64bf-f6c0-b9a927e64961/AppIcon-0-0-1x_U007epad-0-1-85-220.png/512x512bb.jpg',     desc:'324 yerel ilacın bilgisi, yan etkileri ve kullanım talimatları çevrimdışı.' },
+  { name:'Sabah Namazı',        filter:'life',    url:'https://apps.apple.com/tr/app/sabah-namaz%C4%B1/id6759320181',        cat:'Yaşam & Sağlık', icon:'https://is1-ssl.mzstatic.com/image/thumb/Purple221/v4/d2/eb/70/d2eb701b-43e3-8f11-4e05-1afff0e9abb6/AppIcon-0-0-1x_U007epad-0-1-85-220.png/512x512bb.jpg',    desc:'Sabah namazı vakitlerini takip et, konum bazlı ezan hatırlatıcısı.' },
+  { name:'KitchenMate',         filter:'life',    url:'https://apps.apple.com/tr/app/kitchenmate/id6752761314',               cat:'Yaşam & Sağlık', icon:'https://is1-ssl.mzstatic.com/image/thumb/Purple211/v4/ee/0b/c2/ee0bc21b-151d-2576-ed36-ae0594ea1eed/AppIcon-0-0-1x_U007epad-0-1-85-220.png/512x512bb.jpg',    desc:'Mutfaktaki malzemeleri kaydet, tarifler öner, alışveriş listesi oluştur.' },
 ];
 
 /* ── Hero icon wall (first 9 apps) ── */
@@ -483,6 +509,7 @@ const grid = document.getElementById('appsGrid');
 APPS.forEach((app, i) => {
   const card = document.createElement('a');
   card.className = 'app-card';
+  card.dataset.filter = app.filter;
   card.href = app.url;
   card.target = '_blank';
   card.rel = 'noopener';
@@ -495,6 +522,26 @@ APPS.forEach((app, i) => {
     </div>`;
   card.style.transitionDelay = `${(i % 5) * 50}ms`;
   grid.appendChild(card);
+});
+
+/* ── Filter tabs ── */
+const counts = { all: APPS.length, game: 0, finance: 0, life: 0 };
+APPS.forEach(a => counts[a.filter]++);
+document.getElementById('count-all').textContent     = `(${counts.all})`;
+document.getElementById('count-game').textContent    = `(${counts.game})`;
+document.getElementById('count-finance').textContent = `(${counts.finance})`;
+document.getElementById('count-life').textContent    = `(${counts.life})`;
+
+document.querySelectorAll('.filter-btn').forEach(btn => {
+  btn.addEventListener('click', () => {
+    document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+    btn.classList.add('active');
+    const f = btn.dataset.filter;
+    document.querySelectorAll('.app-card').forEach(card => {
+      const match = f === 'all' || card.dataset.filter === f;
+      card.classList.toggle('hidden', !match);
+    });
+  });
 });
 
 /* ── Counters ── */
